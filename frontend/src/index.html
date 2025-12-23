@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Unfollower Agent</title>
+    <meta name="description" content="AI-powered GitHub following management. Unfollow users who don't follow you back with natural language commands.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>GitHub Unfollower Agent</h1>
+            </div>
+            <p class="tagline">AI-powered GitHub following management</p>
+        </header>
+
+        <section id="auth-section" class="card">
+            <h2>Connect Your GitHub Account</h2>
+            <p class="section-description">
+                Enter your GitHub username and a Personal Access Token to get started.
+                Your credentials are only used for this session and are never stored permanently.
+            </p>
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="username">GitHub Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required 
+                        placeholder="your-username"
+                        autocomplete="username"
+                        spellcheck="false"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="token">Personal Access Token</label>
+                    <div class="input-with-toggle">
+                        <input 
+                            type="password" 
+                            id="token" 
+                            required 
+                            placeholder="ghp_xxxxxxxxxxxx"
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <button type="button" id="toggle-token" class="btn-icon" aria-label="Toggle token visibility">
+                            <span class="icon-eye">👁</span>
+                        </button>
+                    </div>
+                    <small>
+                        <a href="https://github.com/settings/tokens/new?scopes=user:follow,read:user&description=GitHub%20Unfollower%20Agent" target="_blank" rel="noopener noreferrer">
+                            Create a token with 'user:follow' scope
+                        </a>
+                    </small>
+                </div>
+                <button type="submit" class="btn-primary" id="connect-btn">
+                    <span class="btn-text">Connect to GitHub</span>
+                    <span class="btn-loading hidden">Connecting...</span>
+                </button>
+            </form>
+            <div id="auth-error" class="error-message hidden"></div>
+        </section>
+
+        <section id="chat-section" class="card hidden">
+            <div id="user-info">
+                <div class="user-details">
+                    <span class="user-avatar" id="user-avatar">👤</span>
+                    <span>Connected as: <strong id="connected-user"></strong></span>
+                </div>
+                <button id="logout-btn" class="btn-secondary">Disconnect</button>
+            </div>
+            
+            <div id="chat-messages">
+                <div class="welcome-message">
+                    <p>Welcome! I can help you manage your GitHub following. Try asking:</p>
+                    <ul>
+                        <li>"Who doesn't follow me back?"</li>
+                        <li>"Show my follower statistics"</li>
+                        <li>"Unfollow all non-followers"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <form id="chat-form">
+                <input 
+                    type="text" 
+                    id="message-input" 
+                    placeholder="Ask me to manage your GitHub following..." 
+                    required
+                    autocomplete="off"
+                >
+                <button type="submit" class="btn-primary" id="send-btn">
+                    <span class="btn-text">Send</span>
+                    <span class="btn-loading hidden">...</span>
+                </button>
+            </form>
+            
+            <div class="quick-actions">
+                <span class="quick-actions-label">Quick actions:</span>
+                <button class="btn-action" data-action="Show my follower statistics">Statistics</button>
+                <button class="btn-action" data-action="Who doesn't follow me back?">Non-followers</button>
+                <button class="btn-action" data-action="Preview unfollowing non-followers">Preview Unfollow</button>
+                <button class="btn-action" data-action="What is my follower ratio?">Ratio Analysis</button>
+            </div>
+        </section>
+        <div id="loading-overlay" class="hidden">
+            <div class="loading-spinner"></div>
+            <p>Processing your request...</p>
+        </div>
+
+        <footer>
+            <p>
+                Your token is only used for this session and is never stored permanently.
+                <br>
+                <a href="https://github.com/jibbs1703/Github-Unfollower-Agent" target="_blank" rel="noopener noreferrer">
+                    View on GitHub
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
